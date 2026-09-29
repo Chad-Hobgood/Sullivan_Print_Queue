@@ -28,8 +28,6 @@ function updateAssistantMetrics() {
   if (!dashSheet) {
     dashSheet = ss.insertSheet("Dashboard_Data_Link");
   }
-  dashSheet.clear();
-
   // 4. Initialize results with headers
   let results = [["Assistant Name", "Completed", "Flagged", "Total Actions", "% of Total Volume"]];
 
@@ -54,6 +52,22 @@ function updateAssistantMetrics() {
 
     results.push([assistant, completedCount, flaggedCount, totalActions, percentOfTotal]);
   });
+
+  // Clear only this function's A:E output, including any stale rows from a
+  // previous run. The other reporting modules own separate column blocks.
+  const dashboardLastRow = dashSheet.getLastRow();
+  let previousOutputLastRow = 0;
+  if (dashboardLastRow > 0) {
+    const previousNames = dashSheet.getRange(1, 1, dashboardLastRow, 1).getValues().flat();
+    for (let index = previousNames.length - 1; index >= 0; index--) {
+      if (previousNames[index] !== "") {
+        previousOutputLastRow = index + 1;
+        break;
+      }
+    }
+  }
+  const rowsToClear = Math.max(previousOutputLastRow, results.length);
+  dashSheet.getRange(1, 1, rowsToClear, 5).clearContent();
 
   // 6. Write results to the sheet
   dashSheet.getRange(1, 1, results.length, 5).setValues(results);

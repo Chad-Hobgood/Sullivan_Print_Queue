@@ -9,13 +9,13 @@ function runLoggingUpdates() {
   const startedAt = new Date();
   Logger.log(`[Logging Handler] Started at ${startedAt.toISOString()}.`);
 
-  // updateAssistantMetrics clears Dashboard_Data_Link, so run it before the
-  // other functions write their dashboard sections.
+  // Each writer refreshes only its assigned dashboard block.
   const steps = [
     ['updateAssistantMetrics', updateAssistantMetrics],
     ['Printer_wear_leveling', Printer_wear_leveling],
     ['Request_and_Completion_Distribution', Request_and_Completion_Distribution],
     ['updateTopTenDashboards', updateTopTenDashboards],
+    ['updateFlagReasonCounts', updateFlagReasonCounts],
   ];
 
   steps.forEach(([name, step], index) => {

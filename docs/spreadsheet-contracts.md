@@ -11,7 +11,7 @@ The script uses fixed sheet names and column positions. These are code assumptio
 | `Automation_Tools` | Assistant metrics and email | Assistant names begin in A5; flag reasons begin in C5:C |
 | `Current Printer Information` | Form formulas and printer reporting | Printer data begins at A:C; A8 downward is the printer list for wear counts |
 | `Current_Filament_Inventory` | Inventory sorter | Row 7 is the header; rows 8 onward are records; column A is the ascending sort key; rows are sorted across the used columns together |
-| `Dashboard_Data_Link` | Reporting functions | Assistant table A:E; printer counts G:H; start/end-hour distribution J:L; top requestors N:Q |
+| `Dashboard_Data_Link` | Reporting functions | Assistant table A:E; printer counts G:H; start/end-hour distribution J:L; top requestors N:Q; flag reason counts S:T |
 | `Users` | Top requestor report | Column A contains email and B display name; row 1 onward is read as lookup data |
 | `Live View` (separate spreadsheet) | Data publishing | Queue projection uses A:B from row 2; available filament names use D from row 13 |
 
@@ -41,7 +41,7 @@ The archive function appends the queue row data as provided by its caller, then 
 
 ## Dashboard output ownership
 
-The logging functions write fixed column blocks. `updateAssistantMetrics()` currently calls `dashSheet.clear()` before writing A:E. The handler therefore runs it first, then the other functions repopulate their blocks. Adding unrelated data or formulas to `Dashboard_Data_Link` is unsafe unless that clearing behavior is changed.
+The logging functions write fixed column blocks. `updateAssistantMetrics()` clears only its A:E output; the other writers refresh only G:H, J:L, N:Q, and S:T. Flag reason counts include one row for each nonblank current reason in `Automation_Tools` C5:C and count `Archive` rows where K is `Flagged` and L exactly matches that reason. Keep unrelated dashboard data outside these owned blocks.
 
 ## Destructive or reordering operations
 

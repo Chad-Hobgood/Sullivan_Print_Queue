@@ -17,7 +17,7 @@ The exact trigger types and installed trigger configuration are not stored in th
 
 ## Reporting and utility functions
 
-`runLoggingUpdates()` runs four dashboard writers in sequence. `updateAssistantMetrics()` clears `Dashboard_Data_Link`, so it runs first; printer usage, hourly start/end counts, and top requestor tables then write to G:H, J:L, and N:Q. `sortCurrentFilamentInventory()` is a separate utility that sorts full inventory rows from row 8 onward by column A.
+`runLoggingUpdates()` runs five dashboard writers in sequence. Assistant totals, printer usage, hourly start/end counts, top requestors, and flag reason counts write to A:E, G:H, J:L, N:Q, and S:T respectively. Each writer refreshes only its own block. `sortCurrentFilamentInventory()` is a separate utility that sorts full inventory rows from row 8 onward by column A.
 
 `removeDuplicateArchiveRows()` is a separate archive maintenance function. It removes duplicate rows using A:V as the comparison key.
 
@@ -38,6 +38,7 @@ Google Form -> Form_Responses -> onFormSubmit
                    scheduled recovery sweep --------+
 
 Archive -> runLoggingUpdates -> Dashboard_Data_Link
+Automation_Tools (C5:C) + Archive (K:L) -> updateFlagReasonCounts -> Dashboard_Data_Link (S:T)
 Current_Filament_Inventory -> sortCurrentFilamentInventory
 Archive -> removeDuplicateArchiveRows
 

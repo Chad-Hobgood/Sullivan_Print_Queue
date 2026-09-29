@@ -40,8 +40,9 @@ The source contains event handler functions and utilities, but trigger definitio
 2. `Printer_wear_leveling`
 3. `Request_and_Completion_Distribution`
 4. `updateTopTenDashboards`
+5. `updateFlagReasonCounts`
 
-The first function clears all of `Dashboard_Data_Link`; retain it first unless its clearing behavior is revised. The inventory sorter is not part of this handler.
+Each writer refreshes only its assigned column block (`A:E`, `G:H`, `J:L`, `N:Q`, or `S:T`), so the order does not protect output written by other steps. The inventory sorter is not part of this handler.
 
 Each handler step logs a start and completion timestamp. If a function throws, the handler logs the failing step and rethrows, so later steps do not run. Check Apps Script execution logs for the first failure.
 

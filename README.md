@@ -15,7 +15,7 @@ Google Apps Script automation for the Sullivan space's print request queue, arch
 - Queue processing can archive rows and send email. Verify the intended trigger and permissions before enabling automation.
 - `cleanupEmptyQueueRows()` deletes queue rows whose status cell in column K is blank.
 - `removeDuplicateArchiveRows()` removes duplicates from the Archive data range using columns A:V as the comparison key.
-- `updateAssistantMetrics()` clears the entire `Dashboard_Data_Link` sheet before writing its own output. The logging handler runs it first, then runs the other dashboard writers.
+- `updateAssistantMetrics()` refreshes only its `Dashboard_Data_Link` A:E output block; the other dashboard data is preserved.
 - `sortCurrentFilamentInventory()` sorts complete inventory rows from row 8 onward by column A and preserves the row 7 header.
 
 These behaviors are described in more detail in the docs. Source comments and live Apps Script configuration remain the final authority for deployed behavior.
