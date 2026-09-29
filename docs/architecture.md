@@ -40,4 +40,7 @@ Google Form -> Form_Responses -> onFormSubmit
 Archive -> runLoggingUpdates -> Dashboard_Data_Link
 Current_Filament_Inventory -> sortCurrentFilamentInventory
 Archive -> removeDuplicateArchiveRows
+
+Form_Responses (D, K) -> publishLiveQueueView -> separate Live View (A:B)
+Current_Filament_Inventory -> publishStudentFilamentInventory -> separate Live View (D13:D)
 ```

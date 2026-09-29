@@ -5,6 +5,7 @@
 - `Code/Queue Handling/`: request intake, status changes, recovery, cleanup, archive-and-email behavior.
 - `Code/Archiving/`: archive data maintenance.
 - `Code/Logging/`: dashboard writers, their sequential handler, and the filament inventory sorter.
+- `Code/Data_Publishing/`: periodic publishers for the separate student-facing `Live View` spreadsheet.
 - `docs/`: architecture, sheet contracts, operations, and this guide.
 
 ## Making a change

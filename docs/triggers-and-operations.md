@@ -14,6 +14,8 @@ The source contains event handler functions and utilities, but trigger definitio
 | `runLoggingUpdates()` | Manual or one time-driven schedule | Rebuilds reporting blocks; stops at the first thrown failure |
 | `sortCurrentFilamentInventory()` | Manual or separately scheduled utility | Reorders inventory records from row 8 by column A |
 | `removeDuplicateArchiveRows()` | Manual or separately scheduled maintenance | Removes duplicate Archive rows using A:V |
+| `publishLiveQueueView()` | Installable time-driven trigger, every minute | Replaces target `Live View` A:B with `Form_Responses` D:K projection |
+| `publishStudentFilamentInventory()` | Installable daily time-driven trigger | Replaces target `Live View` D13 downward with qualifying filament names |
 
 ## Setup checks before enabling
 
@@ -22,6 +24,13 @@ The source contains event handler functions and utilities, but trigger definitio
 3. Confirm `QUEUE_SHEET_NAME` and all sheet names/columns against the live spreadsheet.
 4. Confirm schedules and timezone in Apps Script. The source does not specify a timezone or exact schedule.
 5. Test row movement, email behavior, and cleanup against a spreadsheet copy before activating operational triggers.
+
+## Data publishing setup
+
+1. Run `authorizeScript()` manually from the Apps Script editor as the account that will own the triggers. In addition to email authorization, this opens the target spreadsheet by ID and requests the Sheets permission needed to write to a separate spreadsheet. The trigger owner must also have edit access to that target.
+2. In **Triggers** (the clock icon), add a trigger for `publishLiveQueueView`, choose **Time-driven**, then **Minutes timer** and **Every minute**. This keeps updates frequent enough to target the requested five-minute freshness. Apps Script time-driven triggers run on a schedule and can be delayed; Google does not guarantee a strict maximum end-to-end delay, so this is a best-effort freshness target rather than a hard real-time guarantee.
+3. Add a separate trigger for `publishStudentFilamentInventory`, choose **Time-driven**, then **Day timer**, and select the desired nightly window.
+4. Run each function manually once and confirm the expected ranges in the target spreadsheet before relying on the triggers. Avoid creating duplicate triggers for either function.
 
 ## Logging handler order
 

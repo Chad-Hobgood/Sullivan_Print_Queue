@@ -38,5 +38,10 @@ const QUEUE_SHEET_NAME = "Form_Responses"; //if you change the sheet name this g
 function authorizeScript() {
   // This line simply calls a MailApp function. 
   MailApp.getRemainingDailyQuota();
+
+  // Data_Publishing uses openById() to write to a separate spreadsheet.
+  // Opening it here requests the additional Google Sheets authorization.
+  SpreadsheetApp.openById(DATA_PUBLISHING_TARGET_SPREADSHEET_ID).getName();
+
   Logger.log('Authorization function executed. Please check the permissions pop-up.');
 }

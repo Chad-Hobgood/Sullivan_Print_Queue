@@ -13,6 +13,14 @@ The script uses fixed sheet names and column positions. These are code assumptio
 | `Current_Filament_Inventory` | Inventory sorter | Row 7 is the header; rows 8 onward are records; column A is the ascending sort key; rows are sorted across the used columns together |
 | `Dashboard_Data_Link` | Reporting functions | Assistant table A:E; printer counts G:H; start/end-hour distribution J:L; top requestors N:Q |
 | `Users` | Top requestor report | Column A contains email and B display name; row 1 onward is read as lookup data |
+| `Live View` (separate spreadsheet) | Data publishing | Queue projection uses A:B from row 2; available filament names use D from row 13 |
+
+## Data publishing contracts
+
+- `publishLiveQueueView()` reads `Form_Responses` columns D and K from row 2, preserves their row alignment, and replaces the target sheet's A:B projection beginning at row 2. It clears stale rows when the source queue shrinks.
+- `publishStudentFilamentInventory()` reads `Current_Filament_Inventory` columns A, B, and D from row 8. It publishes column A when B is greater than 100 and D contains neither `Ignore in Student View` nor `Special Filament Request`; results replace the target sheet's D column block beginning at row 13.
+- Both publishing functions write values only and clear only their assigned output columns. The target spreadsheet ID is configured in `Code/Data_Publishing/Publish_Live_Queue_View.js`.
+- The account that owns the installable triggers must have edit access to the target spreadsheet and authorize the cross-spreadsheet Sheets access through `authorizeScript()`.
 
 ## Queue and archive columns referenced in code
 
