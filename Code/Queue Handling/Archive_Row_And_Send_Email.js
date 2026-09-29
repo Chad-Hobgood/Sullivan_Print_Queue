@@ -18,8 +18,8 @@ function archiveRowAndSendEmail(sheet, editedRow, status, recipient, rowData) {
   const flagReasonColumn_L = 12; 
 
   try {
-    // 1. Fetch Dynamic Flag Reasons from Automation_Tools D5:D
-    const flaggedReasons = toolsSheet.getRange("D5:D")
+    // 1. Fetch dynamic flag reasons from Automation_Tools C5:C
+    const flaggedReasons = toolsSheet.getRange("C5:C")
                                      .getValues()
                                      .flat()
                                      .filter(String);
@@ -67,7 +67,7 @@ function archiveRowAndSendEmail(sheet, editedRow, status, recipient, rowData) {
       } else {
         reasonText = `and requires your review`;
         // Log the discrepancy for the Engineering Lead to review later
-        console.warn(`Unlisted Flag Reason detected: "${flagReason}". This was not found in Automation_Tools D5:D.`);
+        console.warn(`Unlisted Flag Reason detected: "${flagReason}". This was not found in Automation_Tools C5:C.`);
       }
       
       body = `Hello Sullivan Student, \n\n` +

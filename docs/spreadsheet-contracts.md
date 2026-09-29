@@ -8,7 +8,7 @@ The script uses fixed sheet names and column positions. These are code assumptio
 | --- | --- | --- |
 | `Form_Responses` | Queue handlers | Queue sheet configured by `QUEUE_SHEET_NAME`; row 1 is header; columns A, C, K, M, O, T:W are used by workflow code |
 | `Archive` | Archiving and reporting | Row 1 is header; A:V are copied/used for duplicate comparison; W receives completion time; Z:AD receive duration formulas; reporting reads A, C, K, M, O, and W |
-| `Automation_Tools` | Assistant metrics and email | Assistant names begin in A5; flag reasons begin in D5 |
+| `Automation_Tools` | Assistant metrics and email | Assistant names begin in A5; flag reasons begin in C5:C |
 | `Current Printer Information` | Form formulas and printer reporting | Printer data begins at A:C; A8 downward is the printer list for wear counts |
 | `Current_Filament_Inventory` | Inventory sorter | Row 7 is the header; rows 8 onward are records; column A is the ascending sort key; rows are sorted across the used columns together |
 | `Dashboard_Data_Link` | Reporting functions | Assistant table A:E; printer counts G:H; start/end-hour distribution J:L; top requestors N:Q |
