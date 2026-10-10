@@ -8,10 +8,10 @@ The script uses fixed sheet names and column positions. These are code assumptio
 | --- | --- | --- |
 | `Form_Responses` | Queue handlers | Queue sheet configured by `QUEUE_SHEET_NAME`; row 1 is header; columns A, C, K, M, O, T:W are used by workflow code |
 | `Archive` | Archiving and reporting | Row 1 is header; A:V are copied/used for duplicate comparison; W receives completion time; Z:AD receive duration formulas; reporting reads A, C, K, M, O, and W |
-| `Automation_Tools` | Assistant metrics and email | Assistant names begin in A5; flag reasons begin in C5:C |
+| `Automation_Tools` | Assistant metrics and email | Assistant names begin in A5; accepted project types begin in B5:B; flag reasons begin in C5:C |
 | `Current Printer Information` | Form formulas and printer reporting | Printer data begins at A:C; A8 downward is the printer list for wear counts |
 | `Current_Filament_Inventory` | Inventory sorter | Row 7 is the header; rows 8 onward are records; column A is the ascending sort key; rows are sorted across the used columns together |
-| `Dashboard_Data_Link` | Reporting functions | Assistant table A:E; printer counts G:H; start/end-hour distribution J:L; top requestors N:Q; flag reason counts S:T |
+| `Dashboard_Data_Link` | Reporting functions | Assistant table A:E; printer counts G:H; start/end-hour distribution J:L; top requestors N:Q; flag reason counts S:T; project-type totals V:Y; monthly requests AA onward |
 | `Users` | Top requestor report | Column A contains email and B display name; row 1 onward is read as lookup data |
 | `Live View` (separate spreadsheet) | Data publishing | Queue projection uses A:B from row 2; available filament names use D from row 13 |
 
@@ -28,6 +28,7 @@ The script uses fixed sheet names and column positions. These are code assumptio
 | --- | --- |
 | A | Form submission timestamp; archive elapsed-time formulas use it |
 | C | Requester email |
+| G | Requested project type |
 | K | Queue status (`In Queue`, `In Progress`, `Completed`, `Flagged`, or `Processing...`) |
 | L | Flag reason |
 | M | Printer name; lookup/reporting input |
@@ -41,7 +42,7 @@ The archive function appends the queue row data as provided by its caller, then 
 
 ## Dashboard output ownership
 
-The logging functions write fixed column blocks. `updateAssistantMetrics()` clears only its A:E output; the other writers refresh only G:H, J:L, N:Q, and S:T. Flag reason counts include one row for each nonblank current reason in `Automation_Tools` C5:C and count `Archive` rows where K is `Flagged` and L exactly matches that reason. Keep unrelated dashboard data outside these owned blocks.
+The logging functions write fixed column blocks. `updateAssistantMetrics()` clears only its A:E output; the other writers refresh only G:H, J:L, N:Q, S:T, V:Y, and AA onward. Flag reason counts include one row for each nonblank current reason in `Automation_Tools` C5:C and count `Archive` rows where K is `Flagged` and L exactly matches that reason. Project-type counts include one row per current `Automation_Tools` B5:B entry, count matching `Archive` G values, and split request counts into the current academic year (August through July) using Archive A. Keep unrelated dashboard data outside these owned blocks.
 
 ## Destructive or reordering operations
 

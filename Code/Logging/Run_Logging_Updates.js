@@ -16,6 +16,7 @@ function runLoggingUpdates() {
     ['Request_and_Completion_Distribution', Request_and_Completion_Distribution],
     ['updateTopTenDashboards', updateTopTenDashboards],
     ['updateFlagReasonCounts', updateFlagReasonCounts],
+    ['updateProjectTypeCounts', updateProjectTypeCounts],
   ];
 
   steps.forEach(([name, step], index) => {
