@@ -17,6 +17,7 @@ function runLoggingUpdates() {
     ['updateTopTenDashboards', updateTopTenDashboards],
     ['updateFlagReasonCounts', updateFlagReasonCounts],
     ['updateProjectTypeCounts', updateProjectTypeCounts],
+    ['updateTimeDelayAnalysis', updateTimeDelayAnalysis],
   ];
 
   steps.forEach(([name, step], index) => {

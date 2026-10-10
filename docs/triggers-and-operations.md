@@ -8,7 +8,7 @@ The source contains event handler functions and utilities, but trigger definitio
 | --- | --- | --- |
 | `authorizeScript()` | Manual, once per account as needed | Calls `MailApp.getRemainingDailyQuota()` to request email authorization |
 | `onFormSubmit(e)` | Form submit event with event object | Sets formulas and initial queue status |
-| `onEdit(e)` | Queue edit event with event object | Sets timestamps or archives completed/flagged rows and emails requester |
+| `onEdit(e)` | Queue edit event with event object | Stamps V when a row enters `In Progress`; archives completed/flagged rows, stamps W, and emails requester |
 | `processAnyRemainingStatusItems()` | Time-driven recovery schedule | Processes eligible completed/flagged rows older than one minute |
 | `cleanupEmptyQueueRows()` | Time-driven cleanup schedule | Deletes rows with blank status in K |
 | `runLoggingUpdates()` | Manual or one time-driven schedule | Rebuilds reporting blocks; stops at the first thrown failure |
@@ -41,8 +41,10 @@ The source contains event handler functions and utilities, but trigger definitio
 3. `Request_and_Completion_Distribution`
 4. `updateTopTenDashboards`
 5. `updateFlagReasonCounts`
+6. `updateProjectTypeCounts`
+7. `updateTimeDelayAnalysis`
 
-Each writer refreshes only its assigned column block (`A:E`, `G:H`, `J:L`, `N:Q`, or `S:T`), so the order does not protect output written by other steps. The inventory sorter is not part of this handler.
+Each writer refreshes only its assigned dashboard block, so the order does not protect output written by other steps. The inventory sorter is not part of this handler.
 
 Each handler step logs a start and completion timestamp. If a function throws, the handler logs the failing step and rethrows, so later steps do not run. Check Apps Script execution logs for the first failure.
 
