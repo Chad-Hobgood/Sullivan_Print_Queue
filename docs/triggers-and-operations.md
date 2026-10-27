@@ -16,6 +16,7 @@ The source contains event handler functions and utilities, but trigger definitio
 | `removeDuplicateArchiveRows()` | Manual or separately scheduled maintenance | Removes duplicate Archive rows using A:V |
 | `publishLiveQueueView()` | Installable time-driven trigger, every minute | Replaces target `Live View` A:B with `Form_Responses` D:K projection |
 | `publishStudentFilamentInventory()` | Installable daily time-driven trigger | Replaces target `Live View` D13 downward with qualifying filament names |
+| `publishPrintQueueData()` | Manual or installable time-driven trigger after dashboard updates | Replaces all contents of target `Print_Queue_Data` with `Dashboard_Data_Link` values |
 
 ## Setup checks before enabling
 
@@ -31,6 +32,7 @@ The source contains event handler functions and utilities, but trigger definitio
 2. In **Triggers** (the clock icon), add a trigger for `publishLiveQueueView`, choose **Time-driven**, then **Minutes timer** and **Every minute**. This keeps updates frequent enough to target the requested five-minute freshness. Apps Script time-driven triggers run on a schedule and can be delayed; Google does not guarantee a strict maximum end-to-end delay, so this is a best-effort freshness target rather than a hard real-time guarantee.
 3. Add a separate trigger for `publishStudentFilamentInventory`, choose **Time-driven**, then **Day timer**, and select the desired nightly window.
 4. Run each function manually once and confirm the expected ranges in the target spreadsheet before relying on the triggers. Avoid creating duplicate triggers for either function.
+5. Run `publishPrintQueueData()` after `runLoggingUpdates()` to copy the latest dashboard values to `Print_Queue_Data`. If scheduling it, place its time-driven trigger after the reporting schedule. The account running it needs edit access to spreadsheet `14Tf89-Ykxk3q7-kend86jd6PuFRmsbw9c9vO0er8z_U`.
 
 ## Logging handler order
 
